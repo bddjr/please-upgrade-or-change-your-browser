@@ -1,0 +1,3 @@
+// https://github.com/bddjr/please-upgrade-or-change-your-browser
+// ES2023 Chrome/110
+(function(){try{if(eval("[].with"))return}catch(e){}var zh=/^zh/i.test(navigator.language||navigator.userLanguage),d=document.createElement('div'),s=document.createElement('style'),c='<<STYLE>>';d.innerHTML='<<HTML>>';d=d.firstChild;s.id='please_upgrade_or_change_your_browser__style';'styleSheet'in s?(s.type='text/css',s.styleSheet.cssText=c):s.innerHTML=c;function f(){document.getElementsByTagName('head').item(0).appendChild(s);document.body.insertBefore(d,document.body.firstChild)}if(document.body)f();else var t=setInterval(function(){if(document.body)clearInterval(t),f()},50)})()
