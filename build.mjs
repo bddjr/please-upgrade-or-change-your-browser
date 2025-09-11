@@ -49,12 +49,12 @@ html = html.trim().replace(
     "icon/",
     "'+dir+'icon/"
 ).replace(
-    "https://www.google.com/chrome/",
-    "'+chromeHref+'"
-).replace(
     "Please upgrade or change your browser",
     "'+title+'"
-).trim()
+).replace(
+    "https://www.firefox.com",
+    "'+firefoxHref+'"
+)
 
 
 /** @type {import('terser').MinifyOptions} */
