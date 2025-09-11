@@ -9,7 +9,7 @@
         , title = zh ? '请升级或更换浏览器' : 'Please upgrade or change your browser'
         , chromeHref =
             /MSIE/.test(navigator.userAgent)
-                ? 'https://dl.google.com/update2/installers/ChromeSetup.exe'
+                ? 'https://dl.google.com/update2/installers/win_7/ChromeSetup.exe'
                 : 'https://www.google.c' + (zh ? 'n' : 'om') + '/chrome/' + (
                     /(Trident|Edge)/.test(navigator.userAgent)
                         ? 'fallback/'
