@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "rimraf dist && node build.mjs && es-check es3 dist/**/*.js --checkFeatures"
+  },
+  "devDependencies": {
+    "es-check": "^9.3.1",
+    "html-minifier-terser": "^7.2.0",
+    "rimraf": "^6.0.1",
+    "terser": "^5.44.0"
+  }
+}

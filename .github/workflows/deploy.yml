@@ -1,0 +1,40 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+          check-latest: true
+
+      - name: Build
+        run: |
+          npm i
+          npm run build
+          mkdir -p gh-pages/src
+          mv -f index.html gh-pages/
+          mv -f dist gh-pages/
+          mv -f src/raw.html gh-pages/src/
+          mv -f src/icon gh-pages/src/
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: gh-pages
+          single-commit: true
+          force: true
