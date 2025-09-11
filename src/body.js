@@ -2,22 +2,27 @@
 (function () {
     var lang = navigator.language || navigator.userLanguage
         , zh = /^zh/i.test(lang)
-        , msie = /MSIE/.test(navigator.userAgent)
+        , isIE_1to10 = /MSIE/.test(navigator.userAgent)
+        , isIE = isIE_1to10 || /Trident/.test(navigator.userAgent)
         , dir = document.getElementById('please_upgrade_or_change_your_browser').getAttribute('src').replace(/[^\/\\]*$/, '')
         , style = document.createElement('style')
         , css = '<<STYLE>>'
         , body = document.createElement('div')
         , title = zh ? '请升级或更换浏览器' : 'Please upgrade or change your browser'
         , chromeHref =
-            msie
+            isIE_1to10
                 ? 'https://dl.google.com/update2/installers/win_7/ChromeSetup.exe'
                 : 'https://www.google.c' + (zh ? 'n' : 'om') + '/chrome/' + (
                     /(Trident|Edge)/.test(navigator.userAgent)
                         ? 'fallback/'
                         : ''
                 )
+        , edgeHref =
+            isIE
+                ? 'http://go.microsoft.com/fwlink/?linkid=2192449'
+                : 'https://www.microsoft.com/edge'
         , firefoxHref =
-            msie
+            isIE_1to10
                 ? 'https://download.mozilla.org/?product=firefox-esr115-latest-ssl&os=win'
                 : 'https://www.firefox.com'
         ;

@@ -52,6 +52,12 @@ html = html.trim().replace(
     "Please upgrade or change your browser",
     "'+title+'"
 ).replace(
+    "https://www.google.com/chrome/",
+    "'+chromeHref+'"
+).replace(
+    "https://www.microsoft.com/edge",
+    "'+edgeHref+'"
+).replace(
     "https://www.firefox.com",
     "'+firefoxHref+'"
 )
