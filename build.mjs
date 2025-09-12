@@ -1,35 +1,60 @@
 //@ts-nocheck
 
-import htmlminifier from "html-minifier-terser";
 import fs from 'fs'
 import zlib from 'zlib'
 import { minify_sync as terserMinify } from "terser";
+import { JSDOM } from 'jsdom'
+import CleanCSS from "clean-css";
 
 
-let style = ''
+const styleId = 'please_upgrade_or_change_your_browser__style'
+const bodyId = 'please_upgrade_or_change_your_browser__body'
 
-let html = fs.readFileSync('src/raw.html').toString()
 
-html = await htmlminifier.minify(html, {
-    removeAttributeQuotes: false,
-    quoteCharacter: '"',
-    removeComments: true,
-    collapseWhitespace: true,
-    removeOptionalTags: true,
-    removeRedundantAttributes: true,
-    minifyJS: false,
-    /** @type {import("clean-css").Options} */
-    minifyCSS: {
-        compatibility: 'ie7',
-        level: {
-            1: {
-                optimizeBackground: false,
-            },
+const dom = new JSDOM(fs.readFileSync('src/raw.html').toString('utf-8'))
+const { document, NodeFilter } = dom.window
+
+
+const style = new CleanCSS({
+    compatibility: 'ie7',
+    level: {
+        1: {
+            optimizeBackground: false,
         },
     },
-})
+}).minify(
+    document.getElementById(styleId).innerHTML
+).styles.replace(
+    /['\\\n]/g,
+    m => (({
+        "'": "\\'",
+        "\\": "\\\\",
+        "\n": "\\n",
+    })[m])
+)
 
-html = html.trim().replace(
+
+const body = document.getElementById(bodyId)
+
+body.querySelector('#please_upgrade_or_change_your_browser__title').innerHTML = '{{title}}'
+
+for (const a of body.querySelectorAll('#please_upgrade_or_change_your_browser__browsers a[name]')) {
+    a.setAttribute('href', `{{${a.getAttribute('name')}Href}}`)
+    a.removeAttribute('name')
+    const img = a.querySelector('img')
+    img.setAttribute('src', '{{dir}}' + img.getAttribute('src'))
+}
+
+{
+    // 清除空文本
+    const tw = document.createTreeWalker(body, NodeFilter.SHOW_TEXT)
+    while (tw.nextNode()) {
+        // @ts-ignore
+        tw.currentNode.textContent = tw.currentNode.textContent.trim()
+    }
+}
+
+const outputBody = body.innerHTML.replace(
     /['\\\n]/g,
     m => (({
         "'": "\\'",
@@ -37,29 +62,8 @@ html = html.trim().replace(
         "\n": "\\n",
     })[m])
 ).replace(
-    /<style[^>]+>([\s\S]+?)<\/style>/,
-    (m, a) => ((style = a), '')
-).replace(
-    /^<div[^>]+>([\s\S]+)<\/div>$/,
-    (m, a) => a
-).replaceAll(
-    "</span> </a>",
-    "</span></a>"
-).replaceAll(
-    "icon/",
-    "'+dir+'icon/"
-).replace(
-    "Please upgrade or change your browser",
-    "'+title+'"
-).replace(
-    "https://www.google.com/chrome/",
-    "'+chromeHref+'"
-).replace(
-    "https://www.microsoft.com/edge",
-    "'+edgeHref+'"
-).replace(
-    "https://www.firefox.com",
-    "'+firefoxHref+'"
+    /\{\{(\w+)\}\}/g,
+    (m, a) => `'+${a}+'`
 )
 
 
@@ -70,9 +74,7 @@ const terserConfig = {
         defaults: false,
         arrows: false,
         ecma: 3,
-        dead_code: false,
         typeofs: false,
-        unused: false,
     },
     format: {
         comments: true,
@@ -86,18 +88,12 @@ function minifyjs(js) {
 }
 
 
-let indexjs = fs.readFileSync('src/index.js').toString()
+const indexjs = minifyjs(fs.readFileSync('src/index.js').toString('utf-8'))
 
-indexjs = minifyjs(indexjs)
-
-
-let bodyjs = fs.readFileSync('src/body.js').toString()
-
-bodyjs = bodyjs
-    .replace("<<STYLE>>", style)
-    .replace("<<HTML>>", html)
-
-bodyjs = minifyjs(bodyjs)
+const bodyjs = minifyjs(fs.readFileSync('src/body.js').toString('utf-8').replace(
+    /<<(\w+)>>/g,
+    (m, a) => ({ styleId, style, bodyId, outputBody }[a])
+))
 
 
 fs.mkdirSync('dist/please-upgrade-or-change-your-browser', { recursive: true })

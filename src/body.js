@@ -1,12 +1,12 @@
 // https://github.com/bddjr/please-upgrade-or-change-your-browser
-(function () {
+!function () {
     var lang = navigator.language || navigator.userLanguage
         , zh = /^zh/i.test(lang)
         , isIE_not11 = /MSIE/.test(navigator.userAgent)
         , isIE = isIE_not11 || /Trident/.test(navigator.userAgent)
         , dir = document.getElementById('please_upgrade_or_change_your_browser').getAttribute('src').replace(/[^\/\\]*$/, '')
         , style = document.createElement('style')
-        , css = '<<STYLE>>'
+        , css = '<<style>>'
         , body = document.createElement('div')
         , title = zh ? '请升级或更换浏览器' : 'Please upgrade or change your browser'
         , chromeHref =
@@ -25,16 +25,17 @@
             isIE_not11
                 ? 'https://download.mozilla.org/?product=firefox-esr115-latest-ssl&os=win'
                 : 'https://www.firefox.com'
+        , supermiumHref = 'http://win32subsystem.live/supermium/'
         ;
 
-    style.id = 'please_upgrade_or_change_your_browser__style';
+    style.id = '<<styleId>>';
 
     typeof style.styleSheet == 'object'
         ? (style.type = 'text/css', style.styleSheet.cssText = css)
         : style.innerHTML = css;
 
-    body.id = 'please_upgrade_or_change_your_browser__body';
-    body.innerHTML = '<<HTML>>';
+    body.id = '<<bodyId>>';
+    body.innerHTML = '<<outputBody>>';
 
     function f() {
         document.getElementsByTagName('head')[0].appendChild(style);
@@ -45,4 +46,4 @@
     else var t = setInterval(function () {
         document.body && (clearInterval(t), f())
     }, 50)
-})()
+}()
