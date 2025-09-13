@@ -1,7 +1,8 @@
 <meta charset="utf-8">
 <style id="please_upgrade_or_change_your_browser__style">
 	#please_upgrade_or_change_your_browser__body {
-		background: gray;
+		background: #666;
+		background: rgba(0, 0, 0, 0.625);
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -18,7 +19,7 @@
 	}
 
 	#please_upgrade_or_change_your_browser__alert {
-		margin: 100px auto;
+		margin: 60px auto;
 		display: inline-block;
 	}
 
@@ -70,6 +71,29 @@
 		cursor: pointer;
 		display: block;
 		margin-top: 8px;
+	}
+
+	@media screen and (max-height: 354px) {
+		#please_upgrade_or_change_your_browser__alert {
+			margin: 4px auto;
+		}
+	}
+
+	@supports (display: flex) {
+		#please_upgrade_or_change_your_browser__body {
+			display: flex;
+			justify-content: center;
+		}
+
+		#please_upgrade_or_change_your_browser__alert {
+			margin: 4px;
+		}
+
+		@media screen and (min-height: 250px) {
+			#please_upgrade_or_change_your_browser__body {
+				align-items: center;
+			}
+		}
 	}
 </style>
 <div id="please_upgrade_or_change_your_browser__body">
