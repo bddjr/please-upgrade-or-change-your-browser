@@ -1,0 +1,119 @@
+<meta charset="utf-8">
+<style id="please_upgrade_or_change_your_browser__style">
+	#please_upgrade_or_change_your_browser__body {
+		background: #666;
+		background: rgba(0, 0, 0, 0.625);
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 16777271;
+		overflow: auto;
+		text-align: center;
+	}
+
+	#please_upgrade_or_change_your_browser__body * {
+		font-family: Arial, 微软雅黑, "Microsoft YaHei", system-ui;
+		color-scheme: light !important;
+	}
+
+	#please_upgrade_or_change_your_browser__alert {
+		margin: 60px auto;
+		display: inline-block;
+	}
+
+	#please_upgrade_or_change_your_browser__x {
+		float: right;
+		cursor: pointer;
+		width: 32px;
+		height: 32px;
+		margin-left: -32px;
+		border: none;
+		background: none;
+		color: black;
+		font-size: 16px;
+	}
+
+	#please_upgrade_or_change_your_browser__main {
+		background: #f2f2f2;
+		color: black;
+		text-align: center;
+		padding: 30px;
+	}
+
+	#please_upgrade_or_change_your_browser__title {
+		font-size: 22px;
+		margin-bottom: 24px;
+	}
+
+	#please_upgrade_or_change_your_browser__browsers a {
+		color: #0069ff;
+		background: white;
+		text-decoration: none;
+		display: inline-block;
+		cursor: pointer;
+		width: 100px;
+		padding: 16px 0;
+		margin: 4px;
+		box-shadow: 0 0 2px gray;
+	}
+
+	#please_upgrade_or_change_your_browser__browsers a img {
+		border: none;
+		background: none;
+	}
+
+	#please_upgrade_or_change_your_browser__browsers a span {
+		font-size: 15px;
+		line-height: 22px;
+		height: 22px;
+		cursor: pointer;
+		display: block;
+		margin-top: 8px;
+	}
+
+	@media screen and (max-height: 354px) {
+		#please_upgrade_or_change_your_browser__alert {
+			margin: 4px auto;
+		}
+	}
+
+	@supports (display: flex) {
+		#please_upgrade_or_change_your_browser__body {
+			display: flex;
+			justify-content: center;
+		}
+
+		#please_upgrade_or_change_your_browser__alert {
+			margin: 4px;
+		}
+
+		@media screen and (min-height: 250px) {
+			#please_upgrade_or_change_your_browser__body {
+				align-items: center;
+			}
+		}
+	}
+</style>
+<div id="please_upgrade_or_change_your_browser__body">
+	<div id="please_upgrade_or_change_your_browser__alert">
+		<button id="please_upgrade_or_change_your_browser__x" type="button"
+			onclick="!function(r){r(parentNode.parentNode),r(document.getElementById('please_upgrade_or_change_your_browser__style'))}(function(e){e.parentNode.removeChild(e)})">X</button>
+		<div id="please_upgrade_or_change_your_browser__main">
+			<div id="please_upgrade_or_change_your_browser__title">Please upgrade or change your browser</div>
+			<div id="please_upgrade_or_change_your_browser__browsers">
+				<a name="chrome" target="_blank" rel="noopener noreferrer" href="https://www.google.com/chrome/">
+					<img src="icon/chrome.png"><span>Chrome</span>
+				</a><a name="edge" target="_blank" rel="noopener noreferrer" href="https://www.microsoft.com/edge">
+					<img src="icon/edge.png"><span>Edge</span>
+				</a><a name="firefox" target="_blank" rel="noopener noreferrer" href="https://www.firefox.com">
+					<img src="icon/firefox.png"><span>Firefox</span>
+				</a><a name="supermium" target="_blank" rel="noopener noreferrer"
+					href="http://win32subsystem.live/supermium/">
+					<img src="icon/supermium.png"><span>Supermium</span>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
